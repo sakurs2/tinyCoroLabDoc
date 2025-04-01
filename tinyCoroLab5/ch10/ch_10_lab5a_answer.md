@@ -8,16 +8,6 @@ enable_checker: true
 
 ## tinyCoroLab5a实验解析
 
-> ⚠️tinyCoroLab的实验强烈推荐实验者独自完成而非直接翻阅实验解析，否则这与读完题直接翻看参考答案无太大区别，实验解析仅供实验者参考。
+由于本节属于付费部分，用户需要在文档主页中查看知识星球的加入方式，通过加入知识星球解锁文档。
 
-本节将会以tinyCoroLab的官方实现[tinyCoro](https://github.com/sakurs2/tinyCoro)为例，为大家分析并完成lab5a，请实验者预先下载tinyCoro的代码到本地。
-
-```shell
-git clone https://github.com/sakurs2/tinyCoro
-```
-
-并打开[include/coro/comp/when_all.hpp](https://github.com/sakurs2/tinyCoroLab/blob/master/include/coro/comp/when_all.hpp)并大致浏览代码结构。
-
-## 📖lab5a任务参考实现
-
-### 🧑‍💻Task #1 - 实现when_all
+如果你不想付费当然可以啦，点击[include/coro/comp/when_all.hpp](https://github.com/sakurs2/tinyCoroLab/blob/master/include/coro/comp/when_all.hpp)查看tinyCoro是怎么完成lab5a的吧！
