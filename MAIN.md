@@ -1,10 +1,10 @@
 <p align="center">
-  <img src="./resource/tinycoro.png" alt="tinycoro Logo" height="200">
+  <img src="./resource/tinycoro.png" alt="tinycoro Logo" height="200" width = "200">
 </p>
 
 -----------------
 
-# 开启你的tinyCoroLab之旅
+# 欢迎加入tinyCoroLab
 
 [![C++20](https://img.shields.io/badge/dialect-C%2B%2B20-blue)](https://en.cppreference.com/w/cpp/20)[![MIT license](https://img.shields.io/github/license/max0x7ba/atomic_queue)](https://github.com/sakurs2/tinyCoro/blob/master/LICENSE)
 ![platform Linux x86_64](https://img.shields.io/badge/platform-Linux%20x86_64--bit-yellow)
