@@ -37,3 +37,4 @@
   * [Lab5c 构建进阶协程同步组件channel](./tinyCoroLab5/ch10/ch10_lab5c.md)
   * [Lab5c 实验解析](./tinyCoroLab5/ch10/ch_10_lab5c_answer.md)
 * [番外杂谈](./knowledgeExtension/README.md)
+* [更新日志](./updateLog/README.md)
