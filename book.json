@@ -11,7 +11,7 @@
         {
           "version": "1.0",
           "title": "Version 1.0",
-          "gitbook": "https://github.com/sakurs2/tinyCoroLabDoc"
+          "gitbook": "https://github.com/sakurs2/tinyCoroLabDoc.git#v1.0"
         }
       ]
     }
