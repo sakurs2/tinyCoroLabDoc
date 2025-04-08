@@ -24,9 +24,9 @@ enable_checker: true
 
 ### 实验前置讲解
 
-本节实验涉及到的核心文件为[include/coro/engine.hpp](https://github.com/sakurs2/tinyCoroLab/blob/master/include/coro/engine.hpp)和[src/engine.cpp](https://github.com/sakurs2/tinyCoroLab/blob/master/src/engine.cpp)，实验者需要预先打开文件浏览大致代码结构，下面针对该文件内容进行讲解。
+本节实验涉及到的核心文件为[include/coro/engine.hpp](https://github.com/sakurs2/tinyCoroLab/blob/v1.0/include/coro/engine.hpp)和[src/engine.cpp](https://github.com/sakurs2/tinyCoroLab/blob/v1.0/src/engine.cpp)，实验者需要预先打开文件浏览大致代码结构，下面针对该文件内容进行讲解。
 
-首先是engine的成员变量uring_proxy，我们打开其所在文件[include/coro/uring_proxy.hpp](https://github.com/sakurs2/tinyCoroLab/blob/master/include/coro/uring_proxy.hpp)，该文件本质上是对liburing的二次封装，读者应该了解过代理模式，通过这种方法可以降低liburing与tinyCoro之间的耦合性并简化liburing的使用。实验者可以阅读注释来理解uring_proxy各个方法的功能，并且可以在此基础上进行拓展。uring_proxy使用的io_uring是与eventfd绑定的，虽然在知识铺垫章节已经讲过二者之间的搭配，但这里还是要重点强调一下：**从eventfd读取的值并不能反映已完成的I/O数量，只能表示有已完成的I/O**，具体原因已在[知识铺垫章节]()讲过。
+首先是engine的成员变量uring_proxy，我们打开其所在文件[include/coro/uring_proxy.hpp](https://github.com/sakurs2/tinyCoroLab/blob/v1.0/include/coro/uring_proxy.hpp)，该文件本质上是对liburing的二次封装，读者应该了解过代理模式，通过这种方法可以降低liburing与tinyCoro之间的耦合性并简化liburing的使用。实验者可以阅读注释来理解uring_proxy各个方法的功能，并且可以在此基础上进行拓展。uring_proxy使用的io_uring是与eventfd绑定的，虽然在知识铺垫章节已经讲过二者之间的搭配，但这里还是要重点强调一下：**从eventfd读取的值并不能反映已完成的I/O数量，只能表示有已完成的I/O**，具体原因已在[知识铺垫章节]()讲过。
 
 然后是engine存储task的数据结构`m_task_queue`，具体存储单元为协程句柄。task是由engine自身消费的，但task的生产可能来自别的线程，因此可以看作单消费者多-生产者模型，engine默认选用第三方库[atomic_queue](https://github.com/max0x7ba/atomic_queue)提供的一个高性能的多生产者-多消费者无锁环形缓冲队列，队列的大小由tinyCoro的配置参数决定，当然实验者也可以替换为别的数据结构。
 
@@ -54,7 +54,7 @@ enable_checker: true
 
 对于engine的初始化与析构是通过调用`init()`和`deinit()`成员函数实现的，实验者需要自行完善这部分逻辑来确保资源的正确初始化与释放，任何需要被init或者deinit的成员变量均应该被正确处理。
 
-需要注意的是在实验介绍章节提到[include/coro/meta_info.hpp](https://github.com/sakurs2/tinyCoroLab/blob/master/include/coro/meta_info.hpp)文件存储了线程局部变量作为协程运行的上下文，定义如下：
+需要注意的是在实验介绍章节提到[include/coro/meta_info.hpp](https://github.com/sakurs2/tinyCoroLab/blob/v1.0/include/coro/meta_info.hpp)文件存储了线程局部变量作为协程运行的上下文，定义如下：
 
 ```cpp
 struct CORO_ALIGN local_info
@@ -71,8 +71,8 @@ inline thread_local local_info linfo;
 
 ##### 涉及文件
 
-- [include/coro/engine.hpp](https://github.com/sakurs2/tinyCoroLab/blob/master/include/coro/engine.hpp)
-- [src/engine.cpp](https://github.com/sakurs2/tinyCoroLab/blob/master/src/engine.cpp)
+- [include/coro/engine.hpp](https://github.com/sakurs2/tinyCoroLab/blob/v1.0/include/coro/engine.hpp)
+- [src/engine.cpp](https://github.com/sakurs2/tinyCoroLab/blob/v1.0/src/engine.cpp)
 
 ##### 待实现函数
 
@@ -109,8 +109,8 @@ I/O执行状态，这部分逻辑实验者自行设计。
 
 ##### 涉及文件
 
-- [include/coro/engine.hpp](https://github.com/sakurs2/tinyCoroLab/blob/master/include/coro/engine.hpp)
-- [src/engine.cpp](https://github.com/sakurs2/tinyCoroLab/blob/master/src/engine.cpp)
+- [include/coro/engine.hpp](https://github.com/sakurs2/tinyCoroLab/blob/v1.0/include/coro/engine.hpp)
+- [src/engine.cpp](https://github.com/sakurs2/tinyCoroLab/blob/v1.0/src/engine.cpp)
 
 ##### 待实现函数
 

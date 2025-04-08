@@ -19,7 +19,7 @@ enable_checker: true
 
 ### 实验前置讲解
 
-本节实验涉及到的文件为[include/coro/task.hpp](https://github.com/sakurs2/tinyCoroLab/blob/master/include/coro/task.hpp)，实验者需要预先打开文件浏览大致代码结构，下面针对该文件内容进行讲解。
+本节实验涉及到的文件为[include/coro/task.hpp](https://github.com/sakurs2/tinyCoroLab/blob/v1.0/include/coro/task.hpp)，实验者需要预先打开文件浏览大致代码结构，下面针对该文件内容进行讲解。
 
 promise_base为task定义了task创建以及结束时的调度逻辑，分别由`initial_suspend()`和`final_suspend()`实现。`initial_suspend()`必须返回`std::suspend_always`，因为创建task后不能立即执行，必须交由执行引擎执行而不是创建者，而`final_suspend()`则交由实验者实现。
 
@@ -66,7 +66,7 @@ struct promise<void> : public promise_base
 
 ##### 涉及文件
 
-- [include/coro/task.hpp](https://github.com/sakurs2/tinyCoroLab/blob/master/include/coro/task.hpp)
+- [include/coro/task.hpp](https://github.com/sakurs2/tinyCoroLab/blob/v1.0/include/coro/task.hpp)
 
 ##### 待实现函数
 
@@ -87,7 +87,7 @@ struct promise<void> : public promise_base
 
 ##### 涉及文件
 
-- [include/coro/task.hpp](https://github.com/sakurs2/tinyCoroLab/blob/master/include/coro/task.hpp)
+- [include/coro/task.hpp](https://github.com/sakurs2/tinyCoroLab/blob/v1.0/include/coro/task.hpp)
 
 ##### 待实现函数
 

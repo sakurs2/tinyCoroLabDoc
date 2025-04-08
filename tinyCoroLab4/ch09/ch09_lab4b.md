@@ -20,9 +20,9 @@ enable_checker: true
 
 ### 实验前置讲解
 
-本节实验涉及到的核心文件为[include/coro/comp/latch.hpp](https://github.com/sakurs2/tinyCoroLab/blob/master/include/coro/comp/latch.hpp)和[src/comp/latch.cpp](https://github.com/sakurs2/tinyCoroLab/blob/master/src/comp/latch.cpp)，实验者需要预先打开文件浏览大致代码结构，下面针对该文件内容进行讲解。
+本节实验涉及到的核心文件为[include/coro/comp/latch.hpp](https://github.com/sakurs2/tinyCoroLab/blob/v1.0/include/coro/comp/latch.hpp)和[src/comp/latch.cpp](https://github.com/sakurs2/tinyCoroLab/blob/v1.0/src/comp/latch.cpp)，实验者需要预先打开文件浏览大致代码结构，下面针对该文件内容进行讲解。
 
-与lab4a情况类似，[include/coro/comp/latch.hpp](https://github.com/sakurs2/tinyCoroLab/blob/master/include/coro/comp/latch.hpp)中给出了一个非常简单的latch的定义，注意该定义仅仅是一个形式，不具备latch的正确功能，但是**其类以及函数声明形式是正确的**。
+与lab4a情况类似，[include/coro/comp/latch.hpp](https://github.com/sakurs2/tinyCoroLab/blob/v1.0/include/coro/comp/latch.hpp)中给出了一个非常简单的latch的定义，注意该定义仅仅是一个形式，不具备latch的正确功能，但是**其类以及函数声明形式是正确的**。
 
 另外该文件预定义了`latch_guard`，在其生命周期结束后可以自动对latch调用`count_down`，实验者不要修改任何关于guard的定义。
 
@@ -73,8 +73,8 @@ task<> wait_func() {
 
 ##### 涉及文件
 
-- [include/coro/comp/latch.hpp](https://github.com/sakurs2/tinyCoroLab/blob/master/include/coro/comp/latch.hpp)
-- [src/comp/latch.cpp](https://github.com/sakurs2/tinyCoroLab/blob/master/src/comp/latch.cpp)
+- [include/coro/comp/latch.hpp](https://github.com/sakurs2/tinyCoroLab/blob/v1.0/include/coro/comp/latch.hpp)
+- [src/comp/latch.cpp](https://github.com/sakurs2/tinyCoroLab/blob/v1.0/src/comp/latch.cpp)
 
 ##### 待实现函数
 
@@ -116,7 +116,7 @@ make memtest-lab4b
 
 #### 性能测试
 
-> 💡**tinyCoroLab**预置了用于性能调优的火焰图生成脚本哦！详情请查看[scripts/README.MD](https://github.com/sakurs2/tinyCoroLab/blob/master/scripts/README.MD)。
+> 💡**tinyCoroLab**预置了用于性能调优的火焰图生成脚本哦！详情请查看[scripts/README.MD](https://github.com/sakurs2/tinyCoroLab/blob/v1.0/scripts/README.MD)。
 
 在**tinyCoroLab Introduce**章节中提到性能测试的三种模型：
 
