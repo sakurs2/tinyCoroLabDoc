@@ -19,7 +19,7 @@ enable_checker: true
 
 ### 实验前置讲解
 
-本节实验涉及到的核心文件为[include/coro/comp/condition_variable.hpp](https://github.com/sakurs2/tinyCoroLab/blob/v1.0/include/coro/comp/condition_variable.hpp)和[src/comp/condition_variable.cpp](https://github.com/sakurs2/tinyCoroLab/blob/v1.0/src/comp/condition_variable.cpp)，实验者需要预先打开文件浏览大致代码结构，下面针对该文件内容进行讲解。
+本节实验涉及到的核心文件为[include/coro/comp/condition_variable.hpp](https://github.com/sakurs2/tinyCoroLab/blob/master/include/coro/comp/condition_variable.hpp)和[src/comp/condition_variable.cpp](https://github.com/sakurs2/tinyCoroLab/blob/master/src/comp/condition_variable.cpp)，实验者需要预先打开文件浏览大致代码结构，下面针对该文件内容进行讲解。
 
 tinyCoro中的condition_variable与C++的std::condition_variable功能是一样的，因此我们首先需要回顾一下std::condition_variable的用法。
 
@@ -27,7 +27,7 @@ tinyCoro中的condition_variable与C++的std::condition_variable功能是一样�
 - **notify_one：** 唤醒所有等待该条件变量的线程，通常用于广播通知。
 - **notify_all：** 唤醒一个等待该条件变量的线程，通常用于优先级调度或队列处理。
 
-上述只是列出了部分方法，但对于实现lab5b已经够了，[include/coro/comp/condition_variable.hpp](https://github.com/sakurs2/tinyCoroLab/blob/v1.0/include/coro/comp/condition_variable.hpp)中给出了一个非常简单的condition_variable的定义，注意该定义仅仅是一个形式，不具备condition_variable的正确功能，但是**其类以及函数声明形式是正确的**。
+上述只是列出了部分方法，但对于实现lab5b已经够了，[include/coro/comp/condition_variable.hpp](https://github.com/sakurs2/tinyCoroLab/blob/master/include/coro/comp/condition_variable.hpp)中给出了一个非常简单的condition_variable的定义，注意该定义仅仅是一个形式，不具备condition_variable的正确功能，但是**其类以及函数声明形式是正确的**。
 
 需要额外注意的是std::condition_variable可以与std::mutex搭配，因此coro::std::condition_variable也会与coro::mutex搭配。
 
@@ -112,8 +112,8 @@ private:
 
 ##### 涉及文件
 
-- [include/coro/comp/condition_variable.hpp](https://github.com/sakurs2/tinyCoroLab/blob/v1.0/include/coro/comp/condition_variable.hpp)
-- [src/comp/condition_variable.cpp](https://github.com/sakurs2/tinyCoroLab/blob/v1.0/src/comp/condition_variable.cpp)
+- [include/coro/comp/condition_variable.hpp](https://github.com/sakurs2/tinyCoroLab/blob/master/include/coro/comp/condition_variable.hpp)
+- [src/comp/condition_variable.cpp](https://github.com/sakurs2/tinyCoroLab/blob/master/src/comp/condition_variable.cpp)
 
 ##### 待实现函数
 
@@ -156,7 +156,7 @@ make memtest-lab5b
 
 #### 性能测试
 
-> 💡**tinyCoroLab**预置了用于性能调优的火焰图生成脚本哦！详情请查看[scripts/README.MD](https://github.com/sakurs2/tinyCoroLab/blob/v1.0/scripts/README.MD)。
+> 💡**tinyCoroLab**预置了用于性能调优的火焰图生成脚本哦！详情请查看[scripts/README.MD](https://github.com/sakurs2/tinyCoroLab/blob/master/scripts/README.MD)。
 
 在**tinyCoroLab Introduce**章节中提到性能测试的三种模型：
 

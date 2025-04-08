@@ -20,7 +20,7 @@ enable_checker: true
 
 ### 实验前置讲解
 
-本节实验涉及到的核心文件为[include/coro/context.hpp](https://github.com/sakurs2/tinyCoroLab/blob/v1.0/include/coro/context.hpp)和[src/context.cpp](https://github.com/sakurs2/tinyCoroLab/blob/v1.0/src/context.cpp)，实验者需要预先打开文件浏览大致代码结构，下面针对该文件内容进行讲解。
+本节实验涉及到的核心文件为[include/coro/context.hpp](https://github.com/sakurs2/tinyCoroLab/blob/master/include/coro/context.hpp)和[src/context.cpp](https://github.com/sakurs2/tinyCoroLab/blob/master/src/context.cpp)，实验者需要预先打开文件浏览大致代码结构，下面针对该文件内容进行讲解。
 
 首先每个context都是拥有一个engine的，并且会额外开启一个工作线程来驱动engine执行任务，这里context使用C++智能指针和jthread来管理工作线程。C++智能指针实验者应该熟悉，而jthread是C++20提供的新的线程类，其相比原本的thread增加了自动join和线程取消等功能，简化了线程管理的复杂性，比如jthread会在生命周期结束后自动join，jthread运行的函数可以带有stop_token来传递停止信号。
 
@@ -47,7 +47,7 @@ auto context::start() noexcept -> void
 
 注意！交互图仅仅为了方便你理解，context的循环并不一定要按图中的顺序来，总之要保证在一次次循环中处理掉所有任务。
 
-最后是对scheduler的讲解，读者可以打开[include/coro/scheduler.hpp](https://github.com/sakurs2/tinyCoroLab/blob/v1.0/include/coro/scheduler.hpp)和[src/scheduler.cpp](https://github.com/sakurs2/tinyCoroLab/blob/v1.0/src/scheduler.cpp)大致浏览代码。
+最后是对scheduler的讲解，读者可以打开[include/coro/scheduler.hpp](https://github.com/sakurs2/tinyCoroLab/blob/master/include/coro/scheduler.hpp)和[src/scheduler.cpp](https://github.com/sakurs2/tinyCoroLab/blob/master/src/scheduler.cpp)大致浏览代码。
 
 scheduler已经预先实现好，且是单例模式实现，用户使用tinyCoro构建程序主要是下述流程：
 
@@ -92,8 +92,8 @@ scheduler::loop(run_mode);
 
 ##### 涉及文件
 
-- [include/coro/context.hpp](https://github.com/sakurs2/tinyCoroLab/blob/v1.0/include/coro/context.hpp)
-- [src/context.cpp](https://github.com/sakurs2/tinyCoroLab/blob/v1.0/src/context.cpp)
+- [include/coro/context.hpp](https://github.com/sakurs2/tinyCoroLab/blob/master/include/coro/context.hpp)
+- [src/context.cpp](https://github.com/sakurs2/tinyCoroLab/blob/master/src/context.cpp)
 
 ##### 待实现函数
 
@@ -116,8 +116,8 @@ scheduler::loop(run_mode);
 
 ##### 涉及文件
 
-- [include/coro/context.hpp](https://github.com/sakurs2/tinyCoroLab/blob/v1.0/include/coro/context.hpp)
-- [src/context.cpp](https://github.com/sakurs2/tinyCoroLab/blob/v1.0/src/context.cpp)
+- [include/coro/context.hpp](https://github.com/sakurs2/tinyCoroLab/blob/master/include/coro/context.hpp)
+- [src/context.cpp](https://github.com/sakurs2/tinyCoroLab/blob/master/src/context.cpp)
 
 ##### 待实现函数
 
