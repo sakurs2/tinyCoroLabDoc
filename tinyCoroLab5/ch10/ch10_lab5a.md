@@ -21,7 +21,7 @@ enable_checker: true
 
 ### 实验前置讲解
 
-本节实验涉及到的核心文件为[include/coro/comp/when_all.hpp](https://github.com/sakurs2/tinyCoroLab/blob/master/include/coro/comp/when_all.hpp)，实验者需要预先打开文件浏览大致代码结构，下面针对该文件内容进行讲解。
+本节实验涉及到的核心文件为[include/coro/comp/when_all.hpp](https://github.com/sakurs2/tinyCoroLab/blob/v1.0/include/coro/comp/when_all.hpp)，实验者需要预先打开文件浏览大致代码结构，下面针对该文件内容进行讲解。
 
 该文件预先定义了一个when_all函数可以接收多个参数，并用concepts约束参数列表中的每个参数必须是awaitable类型，因此when_all的作用便是等待参数列表中的所有awaitable执行完毕再返回。
 
@@ -83,7 +83,7 @@ task<> when_all_func() {
 
 ##### 涉及文件
 
-- [include/coro/comp/when_all.hpp](https://github.com/sakurs2/tinyCoroLab/blob/master/include/coro/comp/when_all.hpp)
+- [include/coro/comp/when_all.hpp](https://github.com/sakurs2/tinyCoroLab/blob/v1.0/include/coro/comp/when_all.hpp)
 
 ##### 待实现函数
 

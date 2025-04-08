@@ -22,11 +22,11 @@ enable_checker: true
 
 mutex作为概念上最为人熟知、使用上最为广泛也最为重要的线程同步手段，我想实验者一定不会陌生，而tinyCoro的协程同步组件大家庭也一定不会缺席这位最重要的成员。
 
-本节实验涉及到的核心文件为[include/coro/comp/mutex.hpp](https://github.com/sakurs2/tinyCoroLab/blob/master/include/coro/comp/mutex.hpp)和[src/comp/mutex.cpp](https://github.com/sakurs2/tinyCoroLab/blob/master/src/comp/mutex.cpp)，实验者需要预先打开文件浏览大致代码结构，下面针对该文件内容进行讲解。
+本节实验涉及到的核心文件为[include/coro/comp/mutex.hpp](https://github.com/sakurs2/tinyCoroLab/blob/v1.0/include/coro/comp/mutex.hpp)和[src/comp/mutex.cpp](https://github.com/sakurs2/tinyCoroLab/blob/v1.0/src/comp/mutex.cpp)，实验者需要预先打开文件浏览大致代码结构，下面针对该文件内容进行讲解。
 
-[include/coro/comp/event.hpp](https://github.com/sakurs2/tinyCoroLab/blob/master/include/coro/comp/event.hpp)中给出了一个非常简单的mutex的定义，注意该定义仅仅是一个形式，不具备mutex的正确功能，但是**其类以及函数声明形式是正确的**。
+[include/coro/comp/event.hpp](https://github.com/sakurs2/tinyCoroLab/blob/v1.0/include/coro/comp/event.hpp)中给出了一个非常简单的mutex的定义，注意该定义仅仅是一个形式，不具备mutex的正确功能，但是**其类以及函数声明形式是正确的**。
 
-另外在[include/coro/comp/mutex_guard.hpp](https://github.com/sakurs2/tinyCoroLab/blob/master/include/coro/comp/mutex_guard.hpp)中定义了`lock_guard`用来自动加锁和释放锁，这部分实验者不需要修改。
+另外在[include/coro/comp/mutex_guard.hpp](https://github.com/sakurs2/tinyCoroLab/blob/v1.0/include/coro/comp/mutex_guard.hpp)中定义了`lock_guard`用来自动加锁和释放锁，这部分实验者不需要修改。
 
 ### ⚠️注意事项
 
@@ -74,8 +74,8 @@ task<> func() { // 自动加锁和解锁
 
 ##### 涉及文件
 
-- [include/coro/comp/mutex.hpp](https://github.com/sakurs2/tinyCoroLab/blob/master/include/coro/comp/mutex.hpp)
-- [src/comp/mutex.cpp](https://github.com/sakurs2/tinyCoroLab/blob/master/src/comp/mutex.cpp)
+- [include/coro/comp/mutex.hpp](https://github.com/sakurs2/tinyCoroLab/blob/v1.0/include/coro/comp/mutex.hpp)
+- [src/comp/mutex.cpp](https://github.com/sakurs2/tinyCoroLab/blob/v1.0/src/comp/mutex.cpp)
 
 ##### 待实现函数
 
@@ -121,7 +121,7 @@ make memtest-lab4d
 
 #### 性能测试
 
-> 💡**tinyCoroLab**预置了用于性能调优的火焰图生成脚本哦！详情请查看[scripts/README.MD](https://github.com/sakurs2/tinyCoroLab/blob/master/scripts/README.MD)。
+> 💡**tinyCoroLab**预置了用于性能调优的火焰图生成脚本哦！详情请查看[scripts/README.MD](https://github.com/sakurs2/tinyCoroLab/blob/v1.0/scripts/README.MD)。
 
 在**tinyCoroLab Introduce**章节中提到性能测试的三种模型：
 

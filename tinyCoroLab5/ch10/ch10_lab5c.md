@@ -19,9 +19,9 @@ enable_checker: true
 
 ### 实验前置讲解
 
-本节实验涉及到的核心文件为[include/coro/comp/channel.hpp](https://github.com/sakurs2/tinyCoroLab/blob/master/include/coro/comp/channel.hpp)和[src/comp/channel.cpp](https://github.com/sakurs2/tinyCoroLab/blob/master/src/comp/channel.cpp)，实验者需要预先打开文件浏览大致代码结构，下面针对该文件内容进行讲解。
+本节实验涉及到的核心文件为[include/coro/comp/channel.hpp](https://github.com/sakurs2/tinyCoroLab/blob/v1.0/include/coro/comp/channel.hpp)和[src/comp/channel.cpp](https://github.com/sakurs2/tinyCoroLab/blob/v1.0/src/comp/channel.cpp)，实验者需要预先打开文件浏览大致代码结构，下面针对该文件内容进行讲解。
 
-[include/coro/comp/channel.hpp](https://github.com/sakurs2/tinyCoroLab/blob/master/include/coro/comp/channel.hpp)中给出了一个非常简单的channel的定义，注意该定义仅仅是一个形式，不具备channel的正确功能，但是**其类以及函数声明形式是正确的**。
+[include/coro/comp/channel.hpp](https://github.com/sakurs2/tinyCoroLab/blob/v1.0/include/coro/comp/channel.hpp)中给出了一个非常简单的channel的定义，注意该定义仅仅是一个形式，不具备channel的正确功能，但是**其类以及函数声明形式是正确的**。
 
 ### ⚠️注意事项
 
@@ -87,8 +87,8 @@ task<> close() {
 
 ##### 涉及文件
 
-- [include/coro/comp/channel.hpp](https://github.com/sakurs2/tinyCoroLab/blob/master/include/coro/comp/channel.hpp)
-- [src/comp/channel.cpp](https://github.com/sakurs2/tinyCoroLab/blob/master/src/comp/channel.cpp)
+- [include/coro/comp/channel.hpp](https://github.com/sakurs2/tinyCoroLab/blob/v1.0/include/coro/comp/channel.hpp)
+- [src/comp/channel.cpp](https://github.com/sakurs2/tinyCoroLab/blob/v1.0/src/comp/channel.cpp)
 
 ##### 待实现函数
 
@@ -132,7 +132,7 @@ make memtest-lab5c
 
 #### 性能测试
 
-> 💡**tinyCoroLab**预置了用于性能调优的火焰图生成脚本哦！详情请查看[scripts/README.MD](https://github.com/sakurs2/tinyCoroLab/blob/master/scripts/README.MD)。
+> 💡**tinyCoroLab**预置了用于性能调优的火焰图生成脚本哦！详情请查看[scripts/README.MD](https://github.com/sakurs2/tinyCoroLab/blob/v1.0/scripts/README.MD)。
 
 在**tinyCoroLab Introduce**章节中提到性能测试的三种模型：
 
