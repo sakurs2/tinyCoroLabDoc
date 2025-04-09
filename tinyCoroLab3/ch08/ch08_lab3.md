@@ -165,7 +165,7 @@ int main(int argc, char const* argv[])
 我们首先开启一个终端运行下列指令来开启一个监听8000端口的tcp服务器：
 
 ```shell
-lc -lk 8000
+nc -lk 8000
 ```
 
 然后编译构建tinyCoro，开启一个终端运行stdin_client：
