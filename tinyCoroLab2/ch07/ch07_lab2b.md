@@ -24,7 +24,7 @@ enable_checker: true
 
 首先每个context都是拥有一个engine的，并且会额外开启一个工作线程来驱动engine执行任务，这里context使用C++智能指针和jthread来管理工作线程。C++智能指针实验者应该熟悉，而jthread是C++20提供的新的线程类，其相比原本的thread增加了自动join和线程取消等功能，简化了线程管理的复杂性，比如jthread会在生命周期结束后自动join，jthread运行的函数可以带有stop_token来传递停止信号。
 
-`context::start()`函数已经预先实现好，代码如下：
+`context::start()`函数已经预先实现好，代码如下，实验者根据需要自行添加内容：
 
 ```cpp
 auto context::start() noexcept -> void
@@ -49,21 +49,20 @@ auto context::start() noexcept -> void
 
 最后是对scheduler的讲解，读者可以打开[include/coro/scheduler.hpp](https://github.com/sakurs2/tinyCoroLab/blob/master/include/coro/scheduler.hpp)和[src/scheduler.cpp](https://github.com/sakurs2/tinyCoroLab/blob/master/src/scheduler.cpp)大致浏览代码。
 
-scheduler已经预先实现好，且是单例模式实现，用户使用tinyCoro构建程序主要是下述流程：
+scheduler掌管多个context来充分利用多线程，用户无需管理各个context，这是scheduler的职责，用户只需要把任务交付给scheduler即可。
+
+scheduler采用单例模式实现，用户使用tinyCoro构建程序主要是下述流程：
 
 ```cpp
 scheduler::init(); // 入参为context数量，默认为当前机器的逻辑cpu核心数
-submit_to_scheduler(task); 
-scheduler::start(); // 启动所有context
-scheduler::loop(run_mode); 
+submit_to_scheduler(task);
+// more submit...
+scheduler::loop(); // 等待全部context完成任务后再关闭全部context并返回 
 ```
 
-对于`submit_to_scheduler`，如果配置参数是长期运行模式，那么task会根据scheduler的dispatcher（默认实现为round-robin）来决定派发到具体哪个context，如果是短期运行模式，那么只会派发到当前上下文绑定的context。
+scheduler维护了一个dispatcher用于实现`submit_to_scheduler`函数的任务分发逻辑，其模板参数为分发策略，其核心的`dispatch`函数会返回一个id指定该任务具体派发的context，tinyCoro默认实现了`round-robin`式的任务派发逻辑，实验者可以根据需要实现更高效的派发逻辑。
 
-对于`scheduler::loop`，入参是运行模式，默认为配置参数定义的运行模式，在长期运行模式下，sheduler会直接调用context的join，此时context永远不会停止，因此scheduler永远阻塞在loop函数达到程序不会终止的效果。在短期运行模式下，sheduler会直接向各个context发送停止信号，并调用各个context的join来等待context执行完所有任务。
-
-> 💡**感觉tinyCoro对于运行模式的设计不够统一？**
-> 是的，后续版本会重构此部分，建议用户只在main函数中使用`submit_to_scheduler`，其余部分包括后续的实验全部使用`submit_to_context`。
+在1.1版本，scheduler需要由用户来实现其最核心的逻辑`scheduler::loop()`，在该函数中，scheduler会启动所有context，**并且等待所有context全部完成任务后才统一发送关闭信号**，而在1.1之前的版本context在完成自己的任务后会立刻关闭，这样正在运行的协程就无法安全地将新任务派发给scheduler，因为scheduler可能会把任务交付给一个已经关闭的context。
 
 ### ⚠️注意事项
 
@@ -86,7 +85,7 @@ scheduler::loop(run_mode);
 
 对于外部调用的`register_wait(int register_cnt)`和`unregister_wait(int register_cnt)`，这里需要为读者强调一下其作用。对于引用计数这个概念实验者一定不陌生，这是一种常见的确保资源正确释放的技巧，C++的智能指针其原理便是使用了引用计数，那么context和引用计数又有什么关系呢？
 
-在之后的lab4和lab5中我们将会实现各种协程同步组件，用mutex来举例，如果一个协程尝试对已经被锁住的mutex上锁，那么该协程会陷入suspend状态，然后返回到engine的`exec_one_task()`函数继续后续流程。那么问题来了，前面讲过在短期运行模式下，scheduler会直接向context发送停止信号，context驱动engine，此时engine发现有一个任务待执行，而执行的正是对mutex加锁失败而陷入suspend状态的协程，当执行权返回到engine的`exec_one_task()`时，此时engine任务队列为空且没有IO任务，context察觉到了这一点，它检查了一遍停止条件：**收到停止信号且engine中没有任何待执行的任务（包括IO任务）**，它毅然决然地选择退出循环，终止工作线程。亲爱的，别告诉我你什么都没察觉，因为…………**一个协程未能得到完整执行且内存泄漏啦😱！！！**
+在之后的lab4和lab5中我们将会实现各种协程同步组件，用mutex来举例，如果一个协程尝试对已经被锁住的mutex上锁，那么该协程会陷入suspend状态，然后返回到engine的`exec_one_task()`函数继续后续流程。那么问题来了，前面讲过在短期运行模式下，scheduler会直接向context发送停止信号，context驱动engine，此时engine发现有一个任务待执行，而执行的正是对mutex加锁失败而陷入suspend状态的协程，当执行权返回到engine的`exec_one_task()`时，此时engine任务队列为空且没有IO任务，context察觉到了这一点，它检查了一遍停止条件：**收到停止信号且engine中没有任何待执行的任务（包括IO任务）**，它毅然决然地选择退出循环，终止工作线程。别告诉我此时你什么都没察觉，因为…………**一个协程未能得到完整执行且内存泄漏啦😱！！！**
 
 而通过添加引用计数功能，context的停止条件也增加了一条：检查引用计数是否为0。上述陷入suspend状态的协程会调用`local_conetxt()`获取与其绑定的context并在陷入suspend状态前调用`register_wait(int register_cnt)`增加引用计数，而在协程恢复后调用`unregister_wait(int register_cnt)`来减少引用计数，这样才能拿保证所有的任务全被执行后context才会退出。
 
@@ -122,6 +121,53 @@ scheduler::loop(run_mode);
 ##### 待实现函数
 
 - `coro::context::run(stop_token token)`
+
+#### 🧑‍💻Task #3 - 完善scheduler对context的管理能力
+
+##### 任务目标
+
+在实验前置讲解中有提到1.1版本之前存在运行模式这一概念，短期运行模式下调用`submit_to_scheduler`会向已经停止的context派发任务，这是不合理的，而在1.1版本tinyCoro正式移除了运行模式这一概念，修复了上述问题，scheduler对context的管理能力有所改进。
+
+我们先来看用户使用tinyCoro的一个范例：
+
+```cpp
+scheduler::init();
+submit_to_scheduler(func());
+// repeat submit...
+scheduler::loop(); // wait all context finish
+```
+
+在向scheduler提交完任务后仅需要调用`loop`方法即可，**该方法会启动所有context，然后等待全部context都完成任务后再统一关闭context**，这样各个context在运行过程中可以放心的把任务交付给scheduler来派发，比如当前只存在一个任务且正在被某个context执行，即使其他context没有任何任务也不会退出，而是陷入阻塞态，此时正在运行的context产生了新任务，那么其余context便可以接收该任务。
+
+对于本节任务，我会采用**接力棒**的形式测试scheduler的逻辑，即我会在scheduler启动前提交仅一个协程任务，但该协程任务会在运行过程中向scheduler提交自身，这样各个context均会接收到该协程任务，实验者实现的scheduler必须保证所有的协程任务均得到执行。
+
+**另外需要注意context的停止不一定必须由scheduler来控制**，比如单个context运行场景：
+
+```cpp
+context ctx;
+ctx.init();
+ctx.submit_task(...);
+// repeat submit...
+ctx.start(); // 启动运行
+ctx.join(); // 等待context完成所有任务
+ctx.deinit();
+```
+
+在这种情况下context必须保证完成所有任务然后自动停止，换句话说，工作线程此时应该能自动调用`notify_stop`，不过具体怎么在无scheduler管理的情况下自动停止就交给实验者实现吧！
+
+##### 涉及文件
+
+- [include/coro/context.hpp](https://github.com/sakurs2/tinyCoroLab/blob/master/include/coro/context.hpp)
+- [src/context.cpp](https://github.com/sakurs2/tinyCoroLab/blob/master/src/context.cpp)
+- [include/coro/scheduler.hpp](https://github.com/sakurs2/tinyCoroLab/blob/master/include/coro/scheduler.hpp)
+- [src/scheduler.cpp](https://github.com/sakurs2/tinyCoroLab/blob/master/src/scheduler.cpp)
+
+##### 待实现函数
+
+> **⚠️本节实验可能需要你在多处做出修改，哪怕是非标记区域**
+
+- `context.hpp`和`context.cpp`所有带标记的函数
+- `scheduler.hpp`和`scheduler.cpp`所有带标记的函数
 
 ### 🔖测试
 
