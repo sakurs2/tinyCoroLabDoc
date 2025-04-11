@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./resource/tinycoro.png" width = "198" height="200">
+  <img src="./resource/tinycoro.png" width = "190" height="200">
 </p>
 
 -----------------
@@ -10,6 +10,7 @@
 ![Version Badge](https://img.shields.io/badge/version-v1%2E1-red)
 
 > **⚠️点击左上角选择框切换文档版本**
+> **⭐项目制作不易，请为[tinyCoroLab](https://github.com/sakurs2/tinyCoroLab)点一个star支持一下吧❤️**
 
 ## tinyCoro介绍
 
