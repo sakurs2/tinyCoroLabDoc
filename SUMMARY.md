@@ -1,7 +1,7 @@
 # tinyCoroLab Doc
 
 * [开启你的tinyCoroLab之旅！](./MAIN.md)
-* [致读者(必读)](TOREADER.md)
+* [致读者](TOREADER.md)
 * [模拟面试](./mockInterview/README.md)
 
 * [C++协程入门](./C++CoroutineIntro/README.md)
