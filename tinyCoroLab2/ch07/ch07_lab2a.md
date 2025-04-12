@@ -30,8 +30,8 @@ enable_checker: true
 
 然后是engine存储task的数据结构`m_task_queue`，具体存储单元为协程句柄。task是由engine自身消费的，但task的生产可能来自别的线程，因此可以看作单消费者多-生产者模型，engine默认选用第三方库[atomic_queue](https://github.com/max0x7ba/atomic_queue)提供的一个高性能的多生产者-多消费者无锁环形缓冲队列，队列的大小由tinyCoro的配置参数决定，当然实验者也可以替换为别的数据结构。
 
-> 💡**如何engine的任务队列已满，且此时自身向自身投派发任务，会不会导致永久性阻塞？**
-> 会的，也是目前tinyCoro的一个bug，暂未解决但也不难解决，实验者可忽略这种情况因为当前测试并未覆盖这种case，后续版本更新后会测试会覆盖这种情况。
+> 💡**如何engine的任务队列已满，且此时自身工作线程向自身派发任务，会不会导致永久性阻塞？**
+> 会的，tinyCoro在1.1版本修复了该问题，但实验暂不强制实验者解决该问题，测试也暂不涉及
 
 其次是engine用来存储io_uring cqe的数组`m_urc`，在批量从io_uring取出cqe的时候需要用到。
 

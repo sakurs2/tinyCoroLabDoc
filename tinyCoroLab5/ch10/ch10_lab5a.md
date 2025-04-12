@@ -36,7 +36,7 @@ enable_checker: true
 
 ### 实验任务书
 
-#### 🧑‍💻Task #1 - 实现event
+#### 🧑‍💻Task #1 - 实现when_all
 
 ##### 任务目标
 
@@ -48,10 +48,12 @@ when_all的参数实验者可以理解为是一个个待完成的协程任务，
 
 **实验者肯定会问如果参数列表的awaitable类型的await_resume返回类型不一致怎么办？** tinyCoro的实现是利用concepts对参数约束，如果出现这种情况会在编译期报错，即提醒用户这样的做法不对，当然实验者不必考虑这种情况了，至少测试中when_all参数列表的所有awaitable其await_resume返回类型都是一致的。
 
-**怎么理解when_all需要运行所有awaitable参数呢？是在when_all里一个个执行吗？** 这里的运行指的是将其派发到执行引擎中，然后调用when_all的协程陷入suspend状态，但由于tinyCoro设计的限制when_all参数awaitable的运行最好是派发到与调用when_all的协程相同的context中。
+**怎么理解when_all需要运行所有awaitable参数呢？是在when_all里一个个执行吗？** 这里的运行指的是将其派发到调度器中，然后调用when_all的协程陷入suspend状态。
 
-> **💡将参数awaitable派发到与调用when_all的协程相同的context中，那岂不是等同于顺序执行？**
-> 是的，但tinyCoro正在修复此部分设计缺陷，而修复完成后你可以选择派发到别的context中，此时只需要修改用于派发任务的一行代码即可。
+> **💡tinyCoroLab里有`submit_to_scheduler`和`submit_to_context`两种任务派发方式，实验者选取哪种都行，但只有`submit_to_scheduler`才能利用多线程**
+
+<!-- > **💡将参数awaitable派发到与调用when_all的协程相同的context中，那岂不是等同于顺序执行？**
+> 是的，但tinyCoro正在修复此部分设计缺陷，而修复完成后你可以选择派发到别的context中，此时只需要修改用于派发任务的一行代码即可。 -->
 
 实验者应当能发现when_all是latch的一种使用场景，因此实验者可借助latch简化when_all的实现。
 
@@ -94,7 +96,6 @@ task<> when_all_func() {
 - **你的实现必须包含任务目标中描述的函数且函数声明形式必须一致，不然无法正常编译**
 - **协程函数的返回类型可以被修改，但必须是awaiter或者awaitable类型且await_resume返回类型与任务书规定一致**
 - **请务必考虑多线程安全性问题**
-- **因为tinyCoro设计问题，所以协程组件恢复suspend awaiter时最好将其派发到其原本运行的context**
 
 ### 🔖测试
 
