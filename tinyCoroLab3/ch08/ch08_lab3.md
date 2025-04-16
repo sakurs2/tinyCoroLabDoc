@@ -156,8 +156,7 @@ int main(int argc, char const* argv[])
     scheduler::init();
     submit_to_scheduler(client("localhost", 8000));
 
-    scheduler::start();
-    scheduler::loop(false);
+    scheduler::loop();
     return 0;
 }
 ```
@@ -189,7 +188,7 @@ make
 #### 实验前置环境
 
 - 安装rust的构建工具cargo
-- 安装python3.7及以上版本并确保命令行输入`python`是可以正确启动的
+- 安装python3.7及以上版本并确保命令行输入`python`或`python3`是可以正确启动的
 
 #### 功能测试
 
