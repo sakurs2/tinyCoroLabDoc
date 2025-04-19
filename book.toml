@@ -1,0 +1,13 @@
+[book]
+authors = ["sakurs2"]
+language = "zh"
+src = "./"
+description = "a course to help you learn C++20 coroutine and liburing"
+
+[rust]
+edition = "2024"
+
+[output.html]
+default-theme = "rust"
+git-repository-url = "https://github.com/sakurs2/tinyCoroLab"
+git-repository-icon = "fa-github"
